@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <style>
+        .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(55,58,164,1.00) 0%, rgba(49,33,103,1.00) 100%);
+            background-attachment: fixed;
+        }
+        #card {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 350px;
+            box-shadow: 0 0 29px 2px #3C0EBF;
+            background-color: #666666;
+            color: white;
+        }
+        .img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body class="body">
+<div id="card">
+    <img src="5987462.png" alt="Ícone" class="img">
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF">
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        let cpf = document.getElementById("cpf").value.trim();
+        let senha = document.getElementById("senha").value.trim();
+
+        if (cpf === "69" && senha === "admin") {
+            window.location.href = "Main.html"; // Redireciona para a página principal
+        } else {
+            alert("CPF ou senha incorretos!"); // Mensagem de erro
+        }
+    });
+</script>
+</body>
+</html>
