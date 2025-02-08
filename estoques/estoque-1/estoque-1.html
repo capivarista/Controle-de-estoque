@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estoque</title>
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
-    <link href="css/dark.css" rel="stylesheet" type="text/css">
+    <link href="../../css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+    <link href="../../css/dark.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-
+        .container {
+            margin-top: 80px; /* Para evitar que o conteúdo fique escondido pela navbar */
+        }
     </style>
 </head>
 
@@ -16,7 +19,7 @@
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="Main.html">Navbar</a>
+    <a class="navbar-brand" href="../../Main.html">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
             aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -52,60 +55,92 @@
     </div>
 </nav>
 
-<!-- Seção de Estoque -->
-<div class="container mt-5 estoque-container">
-    <div class="estoque-item primario">
-        <span>Itens em Estoques</span>
-        <span>Itens que estão prontos para a venda</span>
-      <button type="button" class="btn btn-info">Verificar</button>
+<!-- Content -->
+<div class="container">
+    <h1 class="text-center">Análise Financeira do Estoque</h1>
+
+    <!-- Exibição dos gráficos -->
+    <div class="mt-5">
+        <h2>Gráfico de Vendas</h2>
+        <canvas id="vendasChart"></canvas>
     </div>
-    <div class="estoque-item secundario">
-        <span>Itens em Necessidade de Revisão</span>
-        <span>Itens que necessitam passar pela revisão técnica/limpeza</span>
-      <button type="button" class="btn btn-info">Verificar</button>
+
+    <div class="mt-5">
+        <h2>Gráfico de Lucro e Perda</h2>
+        <canvas id="lucroPerdaChart"></canvas>
     </div>
-    <div class="estoque-item terciario">
-        <span>Itens em Ajuste</span>
-        <span>Itens que estão em mal estado</span>
-      <button type="button" class="btn btn-info">Verificar</button>
+
+    <div class="mt-5">
+        <h2>Gráfico de Modelos Mais Vendidos</h2>
+        <canvas id="modelosChart"></canvas>
     </div>
 </div>
 
-<!-- Últimos Adicionados -->
-<p class="ultimos-adicionados divisoria" style="font-weight: bold; font-size: 24px; padding-top: 20px; padding-bottom: 20px;">&nbsp; &nbsp; &nbsp; Recentemente Adicionados:</p>
-
-<div class="container ultimos-adicionados">
-    <div class="card">
-        <h5>Produto 1</h5>
-      <p>Modelo:<br>
-          Serial:<br>
-        Data:
-    </p>
-        <p>&nbsp;</p>
-    </div>
-    <div class="card">
-      <h5>Produto 2</h5>
-        <p>Modelo:<br>
-Serial:<br>
-Data:</p>
-    </div>
-    <div class="card">
-        <h5>Produto 3</h5>
-        <p>Modelo:<br>
-Serial:<br>
-Data:</p>
-    </div>
-</div>
-
-<a href="adicionar.html">
-    <button class="botao-flutuante">+</button>
-</a>
-<!-- Scripts -->
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap-4.4.1.js"></script>
 
 <script>
+    // Dados de vendas, lucro e perda (exemplo)
+    const vendas = [1000, 1500, 2000, 1800, 2200, 2500]; // Valores de venda
+    const lucros = [300, 400, 500, 450, 600, 700];  // Lucros obtidos
+    const perdas = [50, 100, 150, 200, 50, 80];  // Perdas registradas
+
+    // Dados de modelos mais vendidos (exemplo)
+    const modelos = ['Modelo A', 'Modelo B', 'Modelo C', 'Modelo D', 'Modelo E'];
+    const vendasModelos = [40, 35, 50, 25, 10]; // Quantidade de unidades vendidas de cada modelo
+
+    // Atualizar gráficos com os dados registrados
+    const updateCharts = () => {
+        const vendasChart = new Chart(document.getElementById('vendasChart'), {
+            type: 'line',
+            data: {
+                labels: vendas.map((_, index) => `Venda ${index + 1}`),
+                datasets: [{
+                    label: 'Valor de Venda (R$)',
+                    data: vendas,
+                    borderColor: 'green',
+                    fill: false
+                }]
+            }
+        });
+
+        const lucroPerdaChart = new Chart(document.getElementById('lucroPerdaChart'), {
+            type: 'bar',
+            data: {
+                labels: lucros.map((_, index) => `Venda ${index + 1}`),
+                datasets: [
+                    {
+                        label: 'Lucro (R$)',
+                        data: lucros,
+                        backgroundColor: 'lightgreen'
+                    },
+                    {
+                        label: 'Perda (R$)',
+                        data: perdas,
+                        backgroundColor: 'lightcoral'
+                    }
+                ]
+            }
+        });
+
+        // Gráfico de pizza - Modelos Mais Vendidos
+        const modelosChart = new Chart(document.getElementById('modelosChart'), {
+            type: 'pie',
+            data: {
+                labels: modelos,
+                datasets: [{
+                    data: vendasModelos,
+                    backgroundColor: ['#FF9999', '#66B2FF', '#99FF99', '#FFCC66', '#FF6666']
+                }]
+            }
+        });
+    };
+
+    // Chama a função para gerar os gráficos com os dados
+    updateCharts();
+
+    // Tema escuro e claro
     document.addEventListener("DOMContentLoaded", function() {
         const themeButton = document.getElementById("toggleTheme");
 
@@ -128,7 +163,6 @@ Data:</p>
             }
         });
     });
-
 </script>
 
 </body>
