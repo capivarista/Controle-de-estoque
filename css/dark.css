@@ -1,0 +1,93 @@
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --navbar-color: #f8f9fa;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0,0,0,0.2);
+}
+
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --navbar-color: #1e1e1e;
+    --card-background: #232323;
+    --shadow-color: rgba(255,255,255,0.2);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding-top: 70px;
+}
+
+.navbar {
+    background-color: var(--navbar-color) !important;
+}
+
+.estoque-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.estoque-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px var(--shadow-color);
+    background-color: var(--card-background);
+}
+
+.primario { background-color: #00FF8C; }
+.secundario { background-color: #00FFEB; }
+.terciario { background-color: #FF6769; }
+
+.botao-flutuante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.ultimos-adicionados {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.card {
+    width: 30%;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: var(--card-background);
+    box-shadow: 2px 2px 10px var(--shadow-color);
+}
+
+.btn-theme {
+    margin-right: 10px;
+}
+.divisoria {
+    background-image: -webkit-linear-gradient(180deg,rgba(255,255,255,1.00) 0%,rgba(0,255,21,1.00) 100%);
+    background-image: -moz-linear-gradient(180deg,rgba(255,255,255,1.00) 0%,rgba(0,255,21,1.00) 100%);
+    background-image: -o-linear-gradient(180deg,rgba(255,255,255,1.00) 0%,rgba(0,255,21,1.00) 100%);
+    background-image: linear-gradient(270deg,rgba(255,255,255,1.00) 0%,rgba(0,255,21,1.00) 100%);
+    border-bottom-left-radius: 17px;
+    border-top-left-radius: 17px;
+    -webkit-box-shadow: 0px 0px 10px 1px #00FF8C;
+    box-shadow: 0px 0px 10px 1px #00FF8C;
+}

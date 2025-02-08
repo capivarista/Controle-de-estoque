@@ -52,55 +52,49 @@
     </div>
 </nav>
 
-<!-- Seção de Estoque -->
-<div class="container mt-5 estoque-container">
-    <div class="estoque-item primario">
-        <span>Itens em Estoques</span>
-        <span>Itens que estão prontos para a venda</span>
-      <button type="button" class="btn btn-info">Verificar</button>
-    </div>
-    <div class="estoque-item secundario">
-        <span>Itens em Necessidade de Revisão</span>
-        <span>Itens que necessitam passar pela revisão técnica/limpeza</span>
-      <button type="button" class="btn btn-info">Verificar</button>
-    </div>
-    <div class="estoque-item terciario">
-        <span>Itens em Ajuste</span>
-        <span>Itens que estão em mal estado</span>
-      <button type="button" class="btn btn-info">Verificar</button>
-    </div>
+<div class="container mt-5">
+    <h2 class="text-center">Registrar Novo Item</h2>
+    <form id="formEstoque">
+        <div class="form-group">
+            <label for="nomeItem">Nome do Item</label>
+            <input type="text" class="form-control" id="nomeItem" placeholder="Digite o nome do item" required>
+        </div>
+
+        <div class="form-group">
+            <label for="modeloItem">Modelo</label>
+            <input type="text" class="form-control" id="modeloItem" placeholder="Digite o modelo do item" required>
+        </div>
+
+        <div class="form-group">
+            <label for="serialItem">Número de Série</label>
+            <input type="text" class="form-control" id="serialItem" placeholder="Digite o número de série">
+        </div>
+
+        <div class="form-group">
+            <label for="dataAquisicao">Data de Aquisição</label>
+            <input type="date" class="form-control" id="dataAquisicao" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" class="form-control" id="quantidade" placeholder="Digite a quantidade" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fornecedor">Fornecedor</label>
+            <input type="text" class="form-control" id="fornecedor" placeholder="Digite o fornecedor">
+        </div>
+
+        <div class="form-group">
+            <label for="observacoes">Observações</label>
+            <textarea class="form-control" id="observacoes" rows="3" placeholder="Informações adicionais"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Registrar Item</button>
+    </form>
 </div>
 
-<!-- Últimos Adicionados -->
-<p class="ultimos-adicionados divisoria" style="font-weight: bold; font-size: 24px; padding-top: 20px; padding-bottom: 20px;">&nbsp; &nbsp; &nbsp; Recentemente Adicionados:</p>
 
-<div class="container ultimos-adicionados">
-    <div class="card">
-        <h5>Produto 1</h5>
-      <p>Modelo:<br>
-          Serial:<br>
-        Data:
-    </p>
-        <p>&nbsp;</p>
-    </div>
-    <div class="card">
-      <h5>Produto 2</h5>
-        <p>Modelo:<br>
-Serial:<br>
-Data:</p>
-    </div>
-    <div class="card">
-        <h5>Produto 3</h5>
-        <p>Modelo:<br>
-Serial:<br>
-Data:</p>
-    </div>
-</div>
-
-<!-- Botão Flutuante -->
-<button class="botao-flutuante">+</button>
-
-<!-- Scripts -->
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap-4.4.1.js"></script>
@@ -129,7 +123,32 @@ Data:</p>
         });
     });
 
+    document.getElementById("formEstoque").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita o reload da página
+
+        const nome = document.getElementById("nomeItem").value;
+        const modelo = document.getElementById("modeloItem").value;
+        const serial = document.getElementById("serialItem").value;
+        const data = document.getElementById("dataAquisicao").value;
+        const quantidade = document.getElementById("quantidade").value;
+        const fornecedor = document.getElementById("fornecedor").value;
+        const observacoes = document.getElementById("observacoes").value;
+
+        // Simulando envio para o backend (aqui poderia ser uma requisição AJAX para salvar os dados no banco)
+        console.log({
+            nome,
+            modelo,
+            serial,
+            data,
+            quantidade,
+            fornecedor,
+            observacoes
+        });
+
+        alert("Item registrado com sucesso!");
+
+        // Opcional: limpar os campos após o registro
+        document.getElementById("formEstoque").reset();
 </script>
 
 </body>
-</html>
