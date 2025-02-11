@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="../../css/bootstrap-4.4.1.css" rel="stylesheet" type="text/css">
+    <link href="../../css/dark.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="../../Main.html">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Estoque</a></li>
+        </ul>
+
+        <button class="btn btn-outline-dark btn-theme" id="toggleTheme">🌙</button>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </div>
+</nav>
+
+<!-- Seção de Estoque -->
+<div class="container mt-5 estoque-container">
+    <div class="estoque-item primario">
+        <span>Itens em Estoque</span>
+        <span>Itens prontos para venda</span>
+        <button type="button" class="btn btn-info">Verificar</button>
+    </div>
+    <div class="estoque-item secundario">
+        <span>Itens em Revisão</span>
+        <span>Itens que necessitam revisão técnica/limpeza</span>
+        <button type="button" class="btn btn-info">Verificar</button>
+    </div>
+    <div class="estoque-item terciario">
+        <span>Itens em Ajuste</span>
+        <span>Itens em mau estado</span>
+        <button type="button" class="btn btn-info">Verificar</button>
+    </div>
+</div>
+
+<!-- Tabela de Estoque -->
+<div class="container mt-4">
+    <h2>📦 Tabela de Estoque</h2>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Modelo</th>
+            <th>Número de Série</th>
+            <th>Descrição</th>
+            <th>Preço (R$)</th>
+            <th>Quantidade</th>
+            <th>Data de Aquisição</th>
+            <th>Fornecedor</th>
+            <th>Observações</th>
+        </tr>
+        </thead>
+        <tbody id="tabela-estoque">
+        <!-- Dados serão inseridos aqui via JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Adiciona jQuery e Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+
+        // Carregar os dados do estoque
+        fetch("http://127.0.0.1:8787/estoque")
+            .then(response => response.json())
+            .then(data => {
+                const tabela = document.getElementById("tabela-estoque");
+                tabela.innerHTML = ""; // Limpa antes de adicionar novos elementos
+
+                if (data.message) {
+                    const row = `<tr><td colspan="10">${data.message}</td></tr>`;
+                    tabela.innerHTML = row;
+                    return;
+                }
+
+                // Preencher a tabela com os dados
+                data.forEach(item => {
+                    const row = `
+                    <tr>
+                        <td>${item.id ?? 'N/A'}</td>
+                        <td>${item.nome ?? 'N/A'}</td>
+                        <td>${item.modelo ?? 'N/A'}</td>
+                        <td>${item.numero_serie ?? 'N/A'}</td>
+                        <td>${item.descricao ?? 'Sem descrição'}</td>
+                        <td>R$ ${item.preco ? item.preco.toFixed(2) : '0.00'}</td>
+                        <td>${item.quantidade ?? 0}</td>
+                        <td>${item.data_aquisicao ? new Date(item.data_aquisicao).toLocaleDateString() : 'N/A'}</td>
+                        <td>${item.fornecedor ?? 'N/A'}</td>
+                        <td>${item.observacoes ?? 'N/A'}</td>
+                    </tr>
+                    `;
+                    tabela.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                console.error("Erro ao carregar estoque:", error);
+                alert("Erro ao carregar dados do estoque. Verifique o console para mais detalhes.");
+            });
+    });
+</script>
+
+</body>
+</html>

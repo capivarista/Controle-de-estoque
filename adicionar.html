@@ -27,7 +27,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="Main.html">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+            <li class="nav-item"><a class="nav-link" href="scr/estoque/estoque.html">Estoque</a></li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -94,7 +94,6 @@
     </form>
 </div>
 
-
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap-4.4.1.js"></script>
@@ -134,21 +133,37 @@
         const fornecedor = document.getElementById("fornecedor").value;
         const observacoes = document.getElementById("observacoes").value;
 
-        // Simulando envio para o backend (aqui poderia ser uma requisição AJAX para salvar os dados no banco)
-        console.log({
-            nome,
-            modelo,
-            serial,
-            data,
-            quantidade,
-            fornecedor,
-            observacoes
-        });
-
-        alert("Item registrado com sucesso!");
-
-        // Opcional: limpar os campos após o registro
-        document.getElementById("formEstoque").reset();
+        // Enviar os dados para o backend via AJAX
+        fetch("http://seu-backend/estoque", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome,
+                modelo,
+                serial,
+                data,
+                quantidade,
+                fornecedor,
+                observacoes
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Erro: " + data.error);
+                } else {
+                    alert("Item registrado com sucesso!");
+                    document.getElementById("formEstoque").reset();
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao registrar item:", error);
+                alert("Erro ao registrar item. Verifique o console para mais detalhes.");
+            });
+    });
 </script>
 
 </body>
+</html>

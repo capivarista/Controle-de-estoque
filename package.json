@@ -1,0 +1,22 @@
+{
+  "name": "portifolio",
+  "version": "1.0.0",
+  "description": "controle de estoque",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "wrangler": "^2.0.0"
+  }
+}

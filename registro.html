@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <style>
+        .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(180deg,rgba(72,255,161,1.00) 0%,rgba(0,255,84,1.00) 100%);
+        }
+        #card {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 350px;
+            box-shadow: 0 0 29px 2px #0DB1BF;
+            background-color: #666666;
+            color: white;
+            -webkit-box-shadow: 0 0 29px 2px #0DB1BF;
+        }
+        .img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body class="body">
+<div id="card">
+    <img src="5987462.png" alt="Ícone" class="img">
+    <h3>Registro</h3>
+    <form id="registroForm">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" placeholder="Digite seu CPF" required>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmarSenha">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirmarSenha" placeholder="Confirme sua senha" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    <p class="mt-3">Já tem uma conta? <a href="index.html" style="color: #0DB1BF;">Faça login</a></p>
+</div>
+
+<script>
+    document.getElementById("registroForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        let nome = document.getElementById("nome").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let cpf = document.getElementById("cpf").value.trim();
+        let senha = document.getElementById("senha").value.trim();
+        let confirmarSenha = document.getElementById("confirmarSenha").value.trim();
+
+        if (senha !== confirmarSenha) {
+            alert("As senhas não coincidem!");
+            return;
+        }
+
+        // Simulando o armazenamento no banco (você deve conectar isso ao backend depois)
+        alert("Registro realizado com sucesso!");
+        window.location.href = "login.html"; // Redireciona para o login
+    });
+</script>
+</body>
+</html>
